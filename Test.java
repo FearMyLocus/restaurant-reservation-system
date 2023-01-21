@@ -1,12 +1,33 @@
 package RestaurantReservationSystem;
 
 import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Test {
 	public static boolean checkPartySize(int partySize) {
 		return partySize > 0 && partySize <= 12;
 	}
 	public static void main(String[] args) {
+		try {
+            String os = System.getProperty("os.name").toLowerCase();
+            Process p;
+            if (os.contains("win")) {
+                p = Runtime.getRuntime().exec("python.exe /path/to/ascii_art.py");
+            } else if (os.contains("mac") || os.contains("linux")) {
+                p = Runtime.getRuntime().exec("python /path/to/ascii_art.py");
+            } else {
+                System.out.println("Unsupported operating system.");
+                return;
+            }
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String output;
+            while ((output = in.readLine()) != null) {
+                System.out.println(output);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 		// Declare variables for storing user input
 		String name = "", seatingChoice, reservationAnswer1 = "", reservationAnswer2, reservationTime;
 		int partySize, drinkSelection, foodSelection;
@@ -22,7 +43,7 @@ public class Test {
 		int[] foodPrices = { 18, 30, 40, 12, 10 };
 
 		// Welcome message
-		System.out.println("Welcome to The Grill & Bar!");
+		System.out.println("\n\n...Welcome to The Grill & Bar!");
 
 		// Get users name
 		System.out.print("Hello, what's your name?..: ");
